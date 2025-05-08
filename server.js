@@ -2,7 +2,8 @@ const express = require('express');
 const ffmpeg = require('fluent-ffmpeg');
 const path = require('path');
 const app = express();
-
+const auth = 'md147a:abc126ad';
+const base64Auth = Buffer.from(auth).toString('base64');
 // Caminho para ffmpeg.exe dentro do seu projeto
 // const ffmpegPath = path.join(__dirname, 'ffmpeg', 'bin', 'ffmpeg.exe');
 // ffmpeg.setFfmpegPath(ffmpegPath);
@@ -47,6 +48,9 @@ app.get('/live/:id', (req, res) => {
 
   ffmpeg()
     .input(streamUrl)
+    .inputOptions([
+      `-headers`, `Authorization: Basic ${base64Auth}`
+    ])
     .outputOptions([
       '-f', 'mp4',
       '-movflags', 'frag_keyframe+empty_moov'
