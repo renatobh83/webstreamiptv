@@ -16,8 +16,7 @@ app.use(express.static('public'));
 
 // Lista de streams disponíveis
 const streams = [
-  { name: 'Câmera 1', url: 'http://principal.maxpainel.net:2052/md147a/abc126ad/236' ,id: 0 },
-  { name: 'Câmera 2', url: 'http://principal.maxpainel.net:2052/md147a/abc126ad/50312', id: 1 },
+    { name: 'Câmera 2', url: 'http://v1z.v156d1.xyz:80/404040/404040/141479.ts', id: 1 },
   // Adicione mais streams conforme necessário
 ];
 
