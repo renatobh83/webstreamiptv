@@ -3,7 +3,6 @@ const ffmpeg = require('fluent-ffmpeg');
 const path = require('path');
 const app = express();
 
-const ffmpeg = require('fluent-ffmpeg');
 // Caminho para ffmpeg.exe dentro do seu projeto
 // const ffmpegPath = path.join(__dirname, 'ffmpeg', 'bin', 'ffmpeg.exe');
 // ffmpeg.setFfmpegPath(ffmpegPath);
