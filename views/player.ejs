@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= stream.name %></title>
+</head>
+<body>
+    <h1><%= stream.name %></h1>
+    <video width="800" height="600" controls autoplay>
+        <source src="/live/<%= stream.id %>" type="video/mp4">
+        Seu navegador não suporta o elemento de vídeo.
+    </video>
+    <br>
+    <a href="/">Voltar para lista de streams</a>
+</body>
+</html>

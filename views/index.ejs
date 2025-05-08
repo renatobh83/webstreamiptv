@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Streaming Server</title>
+</head>
+<body>
+    <h1>Streams Disponíveis</h1>
+    <ul>
+        <% streams.forEach((stream, index) => { %>
+            <li>
+                <a href="/stream/<%= index %>"><%= stream.name %></a>
+            </li>
+        <% }); %>
+    </ul>
+</body>
+</html>
