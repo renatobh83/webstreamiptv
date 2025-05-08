@@ -3,10 +3,10 @@ const ffmpeg = require('fluent-ffmpeg');
 const path = require('path');
 const app = express();
 
-
+const ffmpeg = require('fluent-ffmpeg');
 // Caminho para ffmpeg.exe dentro do seu projeto
-const ffmpegPath = path.join(__dirname, 'ffmpeg', 'bin', 'ffmpeg.exe');
-ffmpeg.setFfmpegPath(ffmpegPath);
+// const ffmpegPath = path.join(__dirname, 'ffmpeg', 'bin', 'ffmpeg.exe');
+// ffmpeg.setFfmpegPath(ffmpegPath);
 // Configurar FFmpeg
 // ffmpeg.setFfmpegPath(ffmpegPath);
 
@@ -34,8 +34,33 @@ app.get('/stream/:id', (req, res) => {
   res.render('player', { stream });
 });
 
-// Rota para o stream HTTP (transcodificação)
 app.get('/live/:id', (req, res) => {
+  const streamUrl = streams[req.params.id]?.url;
+
+  if (!streamUrl) return res.status(404).send('Stream não encontrado');
+
+  res.writeHead(200, {
+    'Content-Type': 'video/mp4',
+    'Cache-Control': 'no-cache',
+    'Connection': 'keep-alive',
+    'Transfer-Encoding': 'chunked'
+  });
+
+  ffmpeg()
+    .input(streamUrl)
+    .outputOptions([
+      '-f', 'mp4',
+      '-movflags', 'frag_keyframe+empty_moov'
+    ])
+    .on('start', cmd => console.log('FFmpeg iniciado:', cmd))
+    .on('error', err => {
+      console.error('Erro no FFmpeg:', err.message);
+      res.end();
+    })
+    .pipe(res, { end: true });
+});
+// Rota para o stream HTTP (transcodificação)
+app.get('/live2/:id', (req, res) => {
   const streamUrl = streams[req.params.id]?.url;
 
   if (!streamUrl) return res.status(404).send('Stream não encontrado');
